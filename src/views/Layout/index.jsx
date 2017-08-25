@@ -6,6 +6,9 @@ import {Layout, Affix, Row, Col} from 'antd';
 import {Route, Redirect} from 'react-router-dom';
 import {withRouter} from 'react-router-dom';
 
+import AlbumsPage from '../AlbumsPage'
+import SearchForm from '../SearchForm'
+
 
 import {childRoutes} from '@/route'
 import Sidebar from '@/components/Sidebar'
@@ -47,6 +50,8 @@ class App extends React.Component {
 					<Content style={{margin: '0 16px'}}>
 						<div style={{minHeight: 360}}>
 							<Route path="/main" />
+							<Route path="/main/albumsPage" component={AlbumsPage}/>
+							<Route path="/main/searchForm" component={SearchForm}/>
 						</div>
 					</Content>
 				</Layout>

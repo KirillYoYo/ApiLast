@@ -28,14 +28,14 @@ class Login extends React.Component {
 		if (nextProps.user !== this.props.user) {
 			if (nextProps.user) {
 				localStorage.setItem('uid', nextProps.user.uid);
-				this.props.history.replace('/main');
+				this.props.history.replace('/main/searchForm');
 			}
 		}
 	}
 
 	componentWillMount () {
 		if (localStorage.getItem('uid')) {
-			this.props.history.replace('/main');
+			this.props.history.replace('/main/searchForm');
 		}
 	}
 
