@@ -45,7 +45,7 @@ class App extends React.Component {
 	render() {
 		return (
 			<Layout className="ant-layout-has-sider">
-				<Sidebar />
+				{/*<Sidebar />*/}
 				<Layout>
 					<Content style={{margin: '0 16px'}}>
 						<div style={{minHeight: 360}}>

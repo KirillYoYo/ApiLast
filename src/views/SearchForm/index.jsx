@@ -1,5 +1,6 @@
 import React from 'react';
 import {Input, Button, Row, Col } from 'antd';
+import './index.sass';
 
 export default class SearchForm extends React.Component {
 	constructor() {
@@ -35,24 +36,25 @@ export default class SearchForm extends React.Component {
 		return (
 			<div className="search-form-page">
 				<h1>Search form</h1>
-				<div className="search">
-					<Row>
-						<Col span={8}>
-							<Input
-								type="text"
-								placeholder="Искать..."
-								onChange={this.onSearch.bind(this)}
-							/>
-						</Col>
-						<Col span={16}>
-							<Button type="primary" onClick={this.search.bind(this)}>
-								Искать
-							</Button>
-						</Col>
-					</Row>
-
-
+				<div className="page-inner">
+					<div className="search">
+						<Row>
+							<Col span={8}>
+								<Input
+									type="text"
+									placeholder="Искать..."
+									onChange={this.onSearch.bind(this)}
+								/>
+							</Col>
+							<Col span={16}>
+								<Button type="primary" onClick={this.search.bind(this)}>
+									Искать
+								</Button>
+							</Col>
+						</Row>
+					</div>
 				</div>
+
 			</div>
 		)
 	}
