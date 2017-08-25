@@ -15,7 +15,7 @@
 //
 // 	if (process.env.NODE_ENV === 'development') {
 // 		const persistState = require('redux-devtools').persistState;
-// 		const DevTools = require('../containers/DevTools').default;
+// 		const DevTools = require('../envs/DevTools').default;
 //
 // 		const enhancer = compose(
 // 			DevTools.instrument(),
@@ -50,7 +50,7 @@ export default function configureStore(initialState) {
 	const sagaMiddleware = createSagaMiddleware()
 
 	const persistState = require('redux-devtools').persistState;
-	const DevTools = require('../containers/DevTools').default;
+	const DevTools = require('../envs/DevTools').default;
 
 	const store = createStore(
 		rootReducer,
@@ -70,7 +70,7 @@ export default function configureStore(initialState) {
 
 	if (process.env.NODE_ENV === 'development') {
 		const persistState = require('redux-devtools').persistState;
-		const DevTools = require('../containers/DevTools').default;
+		const DevTools = require('../envs/DevTools').default;
 
 		// const enhancer = compose(
 		// 	DevTools.instrument(),

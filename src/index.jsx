@@ -7,7 +7,7 @@ import {BrowserRouter} from 'react-router-dom'
 import configureStore from './store/configureStore';
 import rootSaga from './sagas/sagas'
 import './index.sass';
-import Root from './containers/Root';
+import Root from './envs/Root';
 
 const store = configureStore();
 store.runSaga(rootSaga)
@@ -26,8 +26,8 @@ render(
 );
 
 if (module.hot) {
-	module.hot.accept('./containers/Root', () => {
-		const RootContainer = require('./containers/Root');
+	module.hot.accept('./envs/Root', () => {
+		const RootContainer = require('./envs/Root');
 		render(
 			<LocaleProvider locale={enUS}>
 				<BrowserRouter>

@@ -10,7 +10,7 @@ export default class Home extends React.Component {
 	componentWillMount() {
 		!localStorage.getItem('uid') ?
 			this.props.history.replace('/login')
-		: this.props.history.replace('/main/goods')
+		: this.props.history.replace('/main')
 	}
 
 	render() {
