@@ -4,7 +4,7 @@ module.exports = {
 			key: 7,
 			name: 'Search',
 			icon: 'home',
-			url: '/main/searchForm'
+			url: '/searchForm'
 		},
 	]
 }

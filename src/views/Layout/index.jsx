@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {Layout, Affix, Row, Col} from 'antd';
-import {Route, Redirect} from 'react-router-dom';
+import {Route, Redirect, Switch} from 'react-router-dom';
 import {withRouter} from 'react-router-dom';
 
 import AlbumsPage from '../AlbumsPage'
@@ -29,8 +29,10 @@ class App extends React.Component {
 		}
 	}
 
-	shouldComponentUpdate  () {
-		return !localStorage.getItem('uid')
+	shouldComponentUpdate  (nextProps) {
+		return !localStorage.getItem('uid') ||
+		//		костылик
+		nextProps.location !== this.props.locations
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -49,9 +51,9 @@ class App extends React.Component {
 				<Layout>
 					<Content style={{margin: '0 16px'}}>
 						<div style={{minHeight: 360}}>
-							<Route path="/main" />
-							<Route path="/main/albumsPage" component={AlbumsPage}/>
-							<Route path="/main/searchForm" component={SearchForm}/>
+							<Redirect ещ="/albumsPage"/>
+							<Route path="/albumsPage" component={AlbumsPage}/>
+							<Route path="/searchForm" component={SearchForm}/>
 						</div>
 					</Content>
 				</Layout>

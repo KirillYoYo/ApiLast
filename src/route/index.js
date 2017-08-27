@@ -5,13 +5,14 @@ import Layout from '../views/Layout';
 import Login from '../views/Login';
 import Register from '../views/Register';
 import Home from '@/views/Home';
+import AlbumsPage from '../views/AlbumsPage'
+import SearchForm from '../views/SearchForm'
 
 const routes = (
 	<Switch>
-		<Route exact path='/' component={Home}/>
 		<Route path="/login" component={Login}/>
 		<Route path="/register" component={Register}/>
-		<Route path="/main" component={Layout}/>
+		<Route path="/" component={Layout}/>
 	</Switch>
 );
 

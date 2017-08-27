@@ -1,12 +1,15 @@
 import React from 'react';
 import {Input, Button, Row, Col, message } from 'antd';
 import './index.sass';
+import {Link, withRouter} from 'react-router-dom'
+import AlbumsPage from '../AlbumsPage'
 const axios = require('axios');
 const normalAxios = axios.create();
 
+
 const apikey = 'e7894acb1775228a5278623d078c3b83';
 
-export default class SearchForm extends React.Component {
+class SearchForm extends React.Component {
 	constructor() {
 		super()
 	}
@@ -54,7 +57,16 @@ export default class SearchForm extends React.Component {
 				searchText: e.target.value
 			})
 		}
+	}
 
+	componentWillMount() {
+		const { url } = this.props.match
+		//this.routes = routeGen(url)
+	}
+
+	componentDidMount() {
+		const { url } = this.props.match
+		//this.props.routesNestedUpdate({ path: url, routes: this.routes })
 	}
 
 	render() {
@@ -81,6 +93,9 @@ export default class SearchForm extends React.Component {
 						</Row>
 					</div>
 					<div className="artists-list">
+						<Link to={`/albumsPage`} >
+							<div className="artist" >sdsdsd</div>
+						</Link>
 						{
 							artists ?
 								<div className="inner">
@@ -88,7 +103,9 @@ export default class SearchForm extends React.Component {
 										artists.length !== 0 ?
 											artists.map((item, i) => {
 												return (
-													<div className="artist" key={i}>{item.name}</div>
+													<Link key={i} to={`/albumsPage`} >
+														<div className="artist" >{item.name}</div>
+													</Link>
 												)
 											})
 										: <div>По данному исполнителю не найдено не одной записи</div>
@@ -103,3 +120,4 @@ export default class SearchForm extends React.Component {
 		)
 	}
 }
+export default withRouter(SearchForm)
