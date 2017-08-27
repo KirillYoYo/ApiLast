@@ -21,6 +21,9 @@ const {Content} = Layout;
 class App extends React.Component {
 	constructor(props) {
 		super(props);
+		this.state = {
+			artistName: null
+		}
 	}
 
 	componentWillMount() {
@@ -44,6 +47,12 @@ class App extends React.Component {
 		}
 	}
 
+	setArtistId (name) {
+		this.setState({
+			artistName: name
+		})
+	}
+
 	render() {
 		return (
 			<Layout className="ant-layout-has-sider">
@@ -51,9 +60,13 @@ class App extends React.Component {
 				<Layout>
 					<Content style={{margin: '0 16px'}}>
 						<div style={{minHeight: 360}}>
-							<Redirect ещ="/albumsPage"/>
-							<Route path="/albumsPage" component={AlbumsPage}/>
-							<Route path="/searchForm" component={SearchForm}/>
+							<Redirect to="/searchForm"/>
+							<Route path="/albumsPage" render={() => (
+								<AlbumsPage artistName={this.state.artistName}/>
+							)}/>
+							<Route path="/searchForm" render={() => (
+								<SearchForm setArtistId={this.setArtistId.bind(this)} />
+							)}/>
 						</div>
 					</Content>
 				</Layout>

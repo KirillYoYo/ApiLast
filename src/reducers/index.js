@@ -8,9 +8,6 @@ import goods from './goods';
 const rootReducer = combineReducers({
 	auth,
 	menu,
-	transactions,
-	banks,
-	goods
 });
 
 export default rootReducer;

@@ -1,11 +1,16 @@
 import React from 'react';
-import {Input, Button, Row, Col, message } from 'antd';
+import PropTypes from 'prop-types'
+import {Input, Button, Row, Col, message, Spin  } from 'antd';
 import './index.sass';
 import {Link, withRouter} from 'react-router-dom'
 import AlbumsPage from '../AlbumsPage'
 const axios = require('axios');
 const normalAxios = axios.create();
 
+
+const propTypes = {
+	setArtistId: PropTypes.func,
+};
 
 const apikey = 'e7894acb1775228a5278623d078c3b83';
 
@@ -31,7 +36,7 @@ class SearchForm extends React.Component {
 				let data = await normalAxios.get(`http://ws.audioscrobbler.com/2.0/?method=artist.search&artist=${this.state.searchText}&api_key=${apikey}&format=json`,   {
 					responseType: 'json',
 				});
-				this.setState({
+				await this.setState({
 					loading: false,
 					artists: data.data.results.artistmatches.artist
 				})
@@ -43,6 +48,9 @@ class SearchForm extends React.Component {
 				throw(e)
 			}
 		} else {
+			this.setState({
+				loading: false,
+			});
 			message.error('Ведите название артиста')
 		}
 
@@ -74,7 +82,7 @@ class SearchForm extends React.Component {
 
 		return (
 			<div className="search-form-page">
-				<h1>Search form</h1>
+				<h1>Выбор исполнителя</h1>
 				<div className="page-inner">
 					<div className="search">
 						<Row>
@@ -87,15 +95,13 @@ class SearchForm extends React.Component {
 							</Col>
 							<Col span={16}>
 								<Button type="primary" onClick={this.search.bind(this)}>
-									Искать
+									Искать {this.state.searchText}
 								</Button>
 							</Col>
 						</Row>
 					</div>
 					<div className="artists-list">
-						<Link to={`/albumsPage`} >
-							<div className="artist" >sdsdsd</div>
-						</Link>
+						{this.state.loading ? <div className="spinner"><Spin /></div> : null}
 						{
 							artists ?
 								<div className="inner">
@@ -103,7 +109,7 @@ class SearchForm extends React.Component {
 										artists.length !== 0 ?
 											artists.map((item, i) => {
 												return (
-													<Link key={i} to={`/albumsPage`} >
+													<Link key={i} to={`/albumsPage`} onClick={this.props.setArtistId.bind(this, item.name)}>
 														<div className="artist" >{item.name}</div>
 													</Link>
 												)
@@ -120,4 +126,5 @@ class SearchForm extends React.Component {
 		)
 	}
 }
+SearchForm.propTypes = propTypes;
 export default withRouter(SearchForm)
