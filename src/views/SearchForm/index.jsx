@@ -1,6 +1,10 @@
 import React from 'react';
-import {Input, Button, Row, Col } from 'antd';
+import {Input, Button, Row, Col, message } from 'antd';
 import './index.sass';
+const axios = require('axios');
+const normalAxios = axios.create();
+
+const apikey = 'e7894acb1775228a5278623d078c3b83';
 
 export default class SearchForm extends React.Component {
 	constructor() {
@@ -9,13 +13,36 @@ export default class SearchForm extends React.Component {
 
 	state = {
 		visible: false,
-		tableData: [],
+		artists: null,
 		columns: [],
-		searchText: ''
+		searchText: '',
+		loading: false
 	};
 
-	search() {
-		console.log(this.state.searchText)
+	async search() {
+		this.setState({
+			loading: true
+		});
+		if (this.state.searchText !== '') {
+			try {
+				let data = await normalAxios.get(`http://ws.audioscrobbler.com/2.0/?method=artist.search&artist=${this.state.searchText}&api_key=${apikey}&format=json`,   {
+					responseType: 'json',
+				});
+				this.setState({
+					loading: false,
+					artists: data.data.results.artistmatches.artist
+				})
+			} catch (e) {
+				this.setState({
+					loading: false,
+				});
+				message.error('Произошла ошибка, пожалуйста повторите запрос');
+				throw(e)
+			}
+		} else {
+			message.error('Ведите название артиста')
+		}
+
 	}
 	onSearch(e) {
 		if (e.target.value === '') {
@@ -31,7 +58,7 @@ export default class SearchForm extends React.Component {
 	}
 
 	render() {
-		console.log('render')
+		const {artists} = this.state;
 
 		return (
 			<div className="search-form-page">
@@ -52,6 +79,23 @@ export default class SearchForm extends React.Component {
 								</Button>
 							</Col>
 						</Row>
+					</div>
+					<div className="artists-list">
+						{
+							artists ?
+								<div className="inner">
+									{
+										artists.length !== 0 ?
+											artists.map((item, i) => {
+												return (
+													<div className="artist" key={i}>{item.name}</div>
+												)
+											})
+										: <div>По данному исполнителю не найдено не одной записи</div>
+									}
+								</div>
+							: null
+						}
 					</div>
 				</div>
 
